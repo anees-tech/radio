@@ -1,0 +1,7 @@
+- https://onlineradiobox.com
+- https://mytuner-radio.com/
+- https://streema.com/
+- https://tunein.com
+ Pro Jack Tembo: The API base URL is https://live.jacktembo.com:8004
+ Pro Jack Tembo: Hit https://live.jacktembo.com:8004/ that's where I have put the documentation
+ Pro Jack Tembo: To better visualize how the API is returning data, you can try within your browser, for example, you can try to open https://live.jacktembo.com:8004/api/zm/stations?page=3
