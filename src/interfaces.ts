@@ -1,8 +1,8 @@
 interface RadioType {
-    radioName:string,
-    radioCountry:string,
-    radioFreq:string,
-    radioButton:string,
+    radioName:any,
+    radioCountry:any,
+    radioButton:any,
+    radioImage:any,
 }
 
 export default RadioType;
