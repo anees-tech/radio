@@ -1,15 +1,23 @@
 import React from 'react'
-import Header from './components/Header'
-import Index from './components/regions/Index'
-import Footer from './components/Footer'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './style.css'
+import AllCountries from './components/regions/AllCountries';
+import HomePage from './components/HomePage';
+import CountryStations from './components/regions/CountryStations'
 
 
 function App() {
   return (
     <>
-      <Header/>
-      <Index/>
-      <Footer/>
+     
+      <Router>
+        <Routes>
+          <Route path='/' element={<HomePage/>}/>
+          <Route path="/country/:code" element={<CountryStations />} />
+          <Route path='/allCountries' element={<AllCountries />}/>
+        </Routes>
+      </Router>
+      
     </>
   )
 }

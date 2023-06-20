@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 function Header() {
   return (
     <>
@@ -23,13 +24,14 @@ function Header() {
         <div className="list-items">
           <ul className='flex justify-between gap-10'>
             <li>
-              <a className='text-xl text-semibold text-white' href="#">Home</a>
+              <Link to={'/'} className='text-xl text-semibold text-white'>Home</Link>
             </li>
             <li>
-              <a className='text-xl text-semibold text-white' href="#">All List</a>
+              <Link to={'/allCountries'} className='text-xl text-semibold text-white'>All List</Link>
             </li>
             <li>
-              <a className='text-xl text-semibold text-white' href="#">About</a>
+              <Link to={'/about'} className='text-xl text-semibold text-white'>About</Link>
+
             </li>
           </ul>
         </div>

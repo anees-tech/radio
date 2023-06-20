@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import RadioCard from '../SampleItems/RadioCard'
+import { useSelector } from 'react-redux'
 // import Pagination from './paginataion/Pagination'
 
 
 function Popular() {
+    const { countryCode, countryName} = useSelector((state: any)=>state.countryCodeSlice)
     const [data, setData] = useState([])
     const [totalPages, setTotalPages] = useState(0)
     const [station, setStation] = useState<any[]>([]);
@@ -16,7 +18,7 @@ function Popular() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://live.jacktembo.com:8004/api/zm/stations`)
+            const response = await fetch(`https://live.jacktembo.com:8004/api/${countryCode}/stations`)
             const data = await response.json()
 
             // console.log(data)
@@ -30,7 +32,7 @@ function Popular() {
     } 
     const fetchPage = async (currentPage:any) => {
         try {
-            const response = await fetch(`https://live.jacktembo.com:8004/api/zm/stations?page=${currentPage}`)
+            const response = await fetch(`https://live.jacktembo.com:8004/api/${countryCode}/stations?page=${currentPage}`)
             const data = await response.json()
             return data[0]
         } catch (error) {
@@ -51,7 +53,7 @@ function Popular() {
 
     return (
         <div>
-            <h2 className='text-3xl font-bold mb-10 mt-32 mx-auto text-center'>The Most Popular Around You</h2>
+            <h2 className='text-3xl font-bold mb-10 mt-32 mx-auto text-center'>All Radio stations from {countryName} </h2>
             <div className="mt-4 mb-24 container mx-auto">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {station.map((item): any => {
@@ -60,7 +62,7 @@ function Popular() {
                                 key={item.radio_code}
                                 radioName={item.radio_name}
                                 radioButton='Listen'
-                                radioCountry='Zambia'
+                                radioCountry={countryName}
                                 radioImage={item.radio_image}
                             />
                         </>
