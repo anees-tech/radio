@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import RadioCard from '../SampleItems/RadioCard'
 import { useSelector } from 'react-redux'
+import Header from '../Header'
+import Footer from '../Footer'
 // import Pagination from './paginataion/Pagination'
 
 
 function Popular() {
-    const { countryCode, countryName} = useSelector((state: any)=>state.countryCodeSlice)
+    const { countryCode, countryName } = useSelector((state: any) => state.countryCodeSlice)
     const [data, setData] = useState([])
     const [totalPages, setTotalPages] = useState(0)
     const [station, setStation] = useState<any[]>([]);
@@ -29,8 +31,8 @@ function Popular() {
         } catch (error) {
             console.log(error)
         }
-    } 
-    const fetchPage = async (currentPage:any) => {
+    }
+    const fetchPage = async (currentPage: any) => {
         try {
             const response = await fetch(`https://live.jacktembo.com:8004/api/${countryCode}/stations?page=${currentPage}`)
             const data = await response.json()
@@ -40,8 +42,8 @@ function Popular() {
         }
     }
 
-    const  handleOnchangeData = async (data: any) => {
-       
+    const handleOnchangeData = async (data: any) => {
+
         // console.log(data)
         let currPageNumber: any = data.selected + 1;
         // console.log(currPageNumber)
@@ -53,6 +55,7 @@ function Popular() {
 
     return (
         <div>
+            <Header />
             <h2 className='text-3xl font-bold mb-10 mt-32 mx-auto text-center'>All Radio stations from {countryName} </h2>
             <div className="mt-4 mb-24 container mx-auto">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -84,7 +87,9 @@ function Popular() {
                 nextClassName='px-3 py-2 ml-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
                 activeClassName='px-3  py-2 text-blue-600 border border-gray-300 bg-white hover:bg-white-100 hover:text-dark-300 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
             />
+            <Footer />
         </div>
+
     )
 }
 
