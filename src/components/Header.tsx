@@ -6,7 +6,7 @@ function Header() {
 
       <nav className='flex justify-around items-center py-5 mt-1 fixed w-full z-20 top-0 left-0 px-auto bg-slate-400'>
         <div className="logo">
-          <a href="#">
+          <a href="/">
             <span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'>Global Media</span>
           </a>
         </div>

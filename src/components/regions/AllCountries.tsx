@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
-
+// redux-toolkit
 import { setCountryCode, setCountryName } from '../../store/countryCodeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 const CountryList: React.FC = () => {
-  const { countyrCode } = useSelector( (state: any)=> state.countryCodeSlice)
+  const { countyrCode } = useSelector((state: any) => state.countryCodeSlice)
   const dispatch = useDispatch()
 
 
@@ -40,6 +40,7 @@ const CountryList: React.FC = () => {
     setSelectedCountryCode(countryCode);
     dispatch(setCountryCode(countryCode))
     dispatch(setCountryName(counrtyName))
+
     console.log(countryCode);
   };
 

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import RadioCard from '../SampleItems/RadioCard'
+import { setRadioURL, setRadioImageURL, setRadioType, setRadioName, setRadioID, setRadioCurrListners } from '../../store/RadioPLayerSlice'
+import { useDispatch } from 'react-redux'
+
 // import Pagination from './paginataion/Pagination'
 
 
 function Popular() {
+    const dispatch = useDispatch()
     const [data, setData] = useState([])
     const [totalPages, setTotalPages] = useState(0)
     const [station, setStation] = useState<any[]>([]);
@@ -27,8 +31,8 @@ function Popular() {
         } catch (error) {
             console.log(error)
         }
-    } 
-    const fetchPage = async (currentPage:any) => {
+    }
+    const fetchPage = async (currentPage: any) => {
         try {
             const response = await fetch(`https://live.jacktembo.com:8004/api/zm/stations?page=${currentPage}`)
             const data = await response.json()
@@ -38,8 +42,8 @@ function Popular() {
         }
     }
 
-    const  handleOnchangeData = async (data: any) => {
-       
+    const handleOnchangeData = async (data: any) => {
+
         // console.log(data)
         let currPageNumber: any = data.selected + 1;
         // console.log(currPageNumber)
@@ -49,6 +53,16 @@ function Popular() {
         // console.log(station)
     }
 
+    const handleOnClick = ({ id, radioName, radioCurrListners,radioType, radioURL, radioIMG }: any) => {
+        dispatch(setRadioID(id))
+        dispatch(setRadioName(radioName))
+        dispatch(setRadioImageURL(radioIMG))
+        dispatch(setRadioType(radioType))
+        dispatch(setRadioURL(radioURL))
+        dispatch(setRadioCurrListners(radioCurrListners))
+    }
+
+
     return (
         <div>
             <h2 className='text-3xl font-bold mb-10 mt-32 mx-auto text-center'>The Most Popular Around You</h2>
@@ -57,7 +71,9 @@ function Popular() {
                     {station.map((item): any => {
                         return <>
                             <RadioCard
-                                key={item.radio_code}
+                                onClick={() => handleOnClick({ id: item.radio_id, radioURL:item.live_stream_url, radioIMG:item.radio_image, radioCurrListners:item.current_listeners, radioName:item.radio_name, radioType:item.stream_type })}
+                                radioID={item.radio_id}
+                                key={item.radio_id}
                                 radioName={item.radio_name}
                                 radioButton='Listen'
                                 radioCountry='Zambia'

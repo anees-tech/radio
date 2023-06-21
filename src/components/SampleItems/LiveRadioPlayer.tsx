@@ -1,31 +1,27 @@
-import React, { useState } from 'react';
-import { FaPlay, FaPause } from 'react-icons/fa';
-import interfacesProps from '../../interfaces'
+import { useSelector } from 'react-redux';
+import AudioPlayer from './AudioPlayer';
+import Header from '../Header';
+import Footer from '../Footer';
 
+const RadioCard = () => {
 
- 
-const RadioPlayer: React.FC<interfacesProps> = ({ radioName, radioCountry }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const handleTogglePlay = () => {
-    setIsPlaying(!isPlaying);
-  };
+  const { radioURL, radioID, radioName, radioType, radioImageURL, radioCurrListners } = useSelector((state: any) => state.RadioPLayerSlice)
 
   return (
-    <div className="flex items-center justify-center">
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none"
-        onClick={handleTogglePlay}
-      >
-        {isPlaying ? <FaPause /> : <FaPlay />}
-      </button>
-      <div className="ml-4">
-      <h3 className="text-lg font-semibold">{radioName}</h3>
-        <h3 className="text-lg font-semibold">{radioCountry}</h3>
-        <p className="text-gray-500">{radioCountry}</p>
+    <>
+      <Header />
+      <div className="mt-40 mb-24 text-center container mx-auto w-2/4 bg-white rounded-lg shadow-lg">
+        <h2 className='text-3xl font-bold mb-10 mt-32 mx-auto text-center'>{radioName}</h2>
+        <div className="mb-4">
+          <img src={radioImageURL} alt={radioName} className="w-64 mx-auto h-auto" />
+        </div>
+
+        <div className="text-gray-500">{radioCurrListners} Listeners</div>
+        <AudioPlayer />
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
-export default RadioPlayer;
+export default RadioCard;

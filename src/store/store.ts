@@ -1,17 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import countryCodeSlice from './countryCodeSlice';
+import RadioPLayerSlice from './RadioPLayerSlice';
 
-
-
-
-
- //Redux extension
 
 
 export const store = configureStore({
-    
   reducer: {
     countryCodeSlice,
-    
+    RadioPLayerSlice,
   },
 })
