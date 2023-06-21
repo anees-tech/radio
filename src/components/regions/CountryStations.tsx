@@ -20,13 +20,13 @@ function Popular() {
     useEffect(() => {
         fetchData()
     }, [])
-    
-   
+
+
     const fetchData = async () => {
         try {
-                const response = await fetch(`https://live.jacktembo.com:8004/api/${countryCode}/stations`)
+            const response = await fetch(`https://live.jacktembo.com:8004/api/${countryCode}/stations`)
             const data = await response.json()
-            
+
             // console.log(data)
             setData(data)
             setStation(data[0].stations)
@@ -58,16 +58,14 @@ function Popular() {
     }
 
 
-  
-    const handleOnClick = ({ id, name, listners,radioType, radioURL, imageURL }: any) => {
+
+    const handleOnClick = ({ id, radioName, radioCurrListners, radioType, radioURL, radioIMG }: any) => {
         dispatch(setRadioID(id))
-        dispatch(setRadioName(name))
-        dispatch(setRadioCurrListners(listners))
-        dispatch(setRadioURL(radioURL))
-        dispatch(setRadioImageURL(imageURL))
+        dispatch(setRadioName(radioName))
+        dispatch(setRadioImageURL(radioIMG))
         dispatch(setRadioType(radioType))
-
-
+        dispatch(setRadioURL(radioURL))
+        dispatch(setRadioCurrListners(radioCurrListners))
     }
     return (
         <div>
@@ -78,7 +76,7 @@ function Popular() {
                     {station.map((item): any => {
                         return <>
                             <RadioCard
-                                onClick={() => handleOnClick({ id: item.radio_id, name: item.radio_name, radioType:item.stream_type, imageURL: item.radio_image, listners: item.current_listeners, radioURL: item.live_stream_url })}
+                                onClick={() => handleOnClick({ id: item.radio_id, radioURL: item.live_stream_url, radioIMG: item.radio_image, radioCurrListners: item.current_listeners, radioName: item.radio_name, radioType: item.stream_type })}
                                 key={item.radio_code}
                                 radioName={item.radio_name}
                                 radioButton='Listen'
