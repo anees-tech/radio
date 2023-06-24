@@ -77,7 +77,7 @@ function Header() {
           <option> Select any country</option>
           {countries.map((country: any) => (
             <option key={country.code} value={[country.code, country.name]} >
-              {country.name}
+              <a href={`/filter/${country.code}`}>{country.name}</a>
             </option>
           ))}
         </select>

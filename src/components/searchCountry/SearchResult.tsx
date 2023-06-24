@@ -25,7 +25,6 @@ function SearchResult() {
         try {
             const response = await fetch(`https://live.jacktembo.com:8004/api/${codeOfCountry.toLowerCase()}/stations`)
             const data = await response.json()
-
             // console.log(data)
             setData(data)
             setStation(data[0].stations)
