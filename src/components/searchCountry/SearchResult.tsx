@@ -59,7 +59,7 @@ function SearchResult() {
 
     const handleOnClick = ({ id, radioName, radioCurrListners, radioType, radioURL, radioIMG }: any) => {
         navigate(`/radio/${id}`, { state: { id: id, radioName: radioName, radioCurrListners: radioCurrListners, radioIMG: radioIMG, radioURL: radioURL, radioType: radioType } })
-
+        window.location.reload()
 
     }
     return (

@@ -35,6 +35,7 @@ const CountryList: React.FC = () => {
 
   const handleCountrySelection = (countryCode: string, countryName: string) => {
     navigate(`/country/${countryCode.toLowerCase()}`, {state:{countryCode:countryCode, countryName:countryName}})
+    window.location.reload();
     console.log(countryCode);
   };
 

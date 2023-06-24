@@ -38,7 +38,8 @@ function Header() {
 
     setSelectedCountryCode(code);
     navigate(`/filter/${code}`, { state: { code : code, name: name } });
-  
+    window.location.reload();
+
 
     console.log(selectedValue); // Use selectedValue instead of selectedCountryCode
   };
@@ -77,9 +78,9 @@ function Header() {
           <option> Select any country</option>
           {countries.map((country: any) => (
             <option key={country.code} value={[country.code, country.name]} >
-              <a href={`/filter/${country.code}`}>{country.name}</a>
+             {country.name}
             </option>
-          ))}
+          ))} 
         </select>
       </div >
     </>
