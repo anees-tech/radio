@@ -1,26 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import RadioCard from '../SampleItems/RadioCard'
-import { useNavigate } from 'react-router-dom'
+import Header from '../Header'
+import Footer from '../Footer'
+import { useLocation, useNavigate } from 'react-router-dom'
 
+function SearchResult() {
 
-
-function Popular() {
-    const navigate = useNavigate()
+    const location = useLocation()
+    const codeOfCountry = location.state?.code;
+    const nameOfCountry = location.state?.name;
+     const navigate= useNavigate()
     const [data, setData] = useState([])
     const [totalPages, setTotalPages] = useState(0)
     const [station, setStation] = useState<any[]>([]);
-    const [country, setCountry] = useState('zm')
 
 
     useEffect(() => {
         fetchData()
     }, [])
 
+
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://live.jacktembo.com:8004/api/${country}/stations`)
+            const response = await fetch(`https://live.jacktembo.com:8004/api/${codeOfCountry.toLowerCase()}/stations`)
             const data = await response.json()
+
             // console.log(data)
             setData(data)
             setStation(data[0].stations)
@@ -32,7 +37,7 @@ function Popular() {
     }
     const fetchPage = async (currentPage: any) => {
         try {
-            const response = await fetch(`https://live.jacktembo.com:8004/api/zm/stations?page=${currentPage}`)
+            const response = await fetch(`https://live.jacktembo.com:8004/api/${codeOfCountry.toLowerCase()}/stations?page=${currentPage}`)
             const data = await response.json()
             return data[0]
         } catch (error) {
@@ -51,26 +56,29 @@ function Popular() {
         // console.log(station)
     }
 
-    const handleOnClick = ({ id, radioName, radioCurrListners,radioType, radioURL, radioIMG }: any) => {
-        navigate(`/radio/${id}`, {state:{id:id, radioName:radioName, radioCurrListners: radioCurrListners, radioIMG:radioIMG, radioURL:radioURL, radioType:radioType}})
+
+
+    const handleOnClick = ({ id, radioName, radioCurrListners, radioType, radioURL, radioIMG }: any) => {
+        navigate(`/radio/${id}`, { state: { id: id, radioName: radioName, radioCurrListners: radioCurrListners, radioIMG: radioIMG, radioURL: radioURL, radioType: radioType } })
+
+
     }
-
-
     return (
         <div>
-            <h2 className='text-3xl font-bold mb-10 mt-10 mx-auto text-center'>The Most Popular Around You</h2>
+            <Header />
+            <h2 className='text-3xl font-bold mb-10 mt-10 mx-auto text-center'>All Radio stations from {nameOfCountry} </h2>
             <div className="mt-4 mb-24 container mx-auto">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {station.map((item): any => {
                         return <>
                             <RadioCard
-                                onClick={() => handleOnClick({ id: item.radio_id, radioURL:item.live_stream_url, radioIMG:item.radio_image, radioCurrListners:item.current_listeners, radioName:item.radio_name, radioType:item.stream_type })}
-                                radioID={item.radio_id}
-                                key={item.radio_id}
+                                onClick={() => handleOnClick({ id: item.radio_id, radioURL: item.live_stream_url, radioIMG: item.radio_image, radioCurrListners: item.current_listeners, radioName: item.radio_name, radioType: item.stream_type })}
+                                key={item.radio_code}
                                 radioName={item.radio_name}
                                 radioButton='Listen'
-                                radioCountry='Zambia'
+                                radioCountry={nameOfCountry}
                                 radioImage={item.radio_image}
+                                radioID={item.radio_id}
                             />
                         </>
                     })}
@@ -91,8 +99,10 @@ function Popular() {
                 nextClassName='px-3 py-2 ml-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
                 activeClassName='px-3  py-2 text-blue-600 border border-gray-300 bg-white hover:bg-white-100 hover:text-dark-300 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
             />
+            <Footer />
         </div>
+
     )
 }
 
-export default Popular
+export default SearchResult

@@ -1,11 +1,16 @@
-import { useSelector } from 'react-redux';
 import AudioPlayer from './AudioPlayer';
 import Header from '../Header';
 import Footer from '../Footer';
+import { useLocation } from 'react-router-dom';
 
 const RadioCard = () => {
 
-  const { radioURL, radioID, radioName, radioType, radioImageURL, radioCurrListners } = useSelector((state: any) => state.RadioPLayerSlice)
+  const location = useLocation()
+  const radioName = location.state?.radioName
+  const radioImageURL = location.state?.radioIMG
+  const radioCurrListners = location.state?.radioCurrListners
+  console.log(radioImageURL)
+
 
   return (
     <>

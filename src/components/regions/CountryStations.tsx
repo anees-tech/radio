@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import RadioCard from '../SampleItems/RadioCard'
-import { useDispatch, useSelector } from 'react-redux'
 import Header from '../Header'
 import Footer from '../Footer'
-import { setRadioURL, setRadioImageURL, setRadioType, setRadioName, setRadioID, setRadioCurrListners } from '../../store/RadioPLayerSlice'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 // import Pagination from './paginataion/Pagination'
 
 
 function Popular() {
-    const dispatch = useDispatch()
-    let { countryCode, countryName } = useSelector((state: any) => state.countryCodeSlice)
+    const location = useLocation()
+    const countryCode = location.state?.countryCode
+    const countryName = location.state?.countryName
     const [data, setData] = useState([])
     const [totalPages, setTotalPages] = useState(0)
     const [station, setStation] = useState<any[]>([]);
 
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchData()
@@ -60,12 +61,7 @@ function Popular() {
 
 
     const handleOnClick = ({ id, radioName, radioCurrListners, radioType, radioURL, radioIMG }: any) => {
-        dispatch(setRadioID(id))
-        dispatch(setRadioName(radioName))
-        dispatch(setRadioImageURL(radioIMG))
-        dispatch(setRadioType(radioType))
-        dispatch(setRadioURL(radioURL))
-        dispatch(setRadioCurrListners(radioCurrListners))
+        navigate(`/radio/${id}`, {state:{id:id, radioName:radioName, radioCurrListners: radioCurrListners, radioIMG:radioIMG, radioURL:radioURL, radioType:radioType}})
     }
     return (
         <div>

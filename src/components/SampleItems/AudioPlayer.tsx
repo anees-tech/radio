@@ -1,7 +1,9 @@
-import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 const AudioPlayer = () => {
-    const { radioURL, radioType } = useSelector((state: any) => state.RadioPLayerSlice)
+    const location = useLocation()
+    const radioURL = location.state?.radioURL
+    console.log(radioURL)
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-4">
